@@ -21,6 +21,8 @@ find.val=function(x,val)
 #' @param tol         Tolerance for small values, default 0.1
 #' @param iteration   The number of iteration to run the bias correction.
 #'
+#' @import dplyr
+#'
 #' @return
 #' @export
 #'
@@ -286,12 +288,12 @@ nest.mod.cal <- function(n,y,obs.sta,start.yr,end.yr,fun="mean",tol=0.1)
 
    	#-----------------------------------------------------------------------------------------------------------correction factor
 	# Create y tick
-    y[between(as.vector(y),0,tol)]=tol; y[between(as.vector(y),-tol,0)]= -tol
+    y[dplyr::between(as.vector(y),0,tol)]=tol; y[dplyr::between(as.vector(y),-tol,0)]= -tol
     month.const <- as.matrix(y.hat)/as.matrix(y)                                    # Monthly correction factor - new monthly total/old monthly total
 #   month.const[y < tol] <- 0                                                       # if monthly total (old) is too small - make factor zero (don't want to divide by zero)
     month.const[is.na(month.const)] <- 0                                            # If monthly total is missing, make 0
 
-    z.hat[between(as.vector(z.hat),0,tol)]=tol; z.hat[between(as.vector(z.hat),-tol,0)]= -tol
+    z.hat[dplyr::between(as.vector(z.hat),0,tol)]=tol; z.hat[dplyr::between(as.vector(z.hat),-tol,0)]= -tol
     year.const <- z.tick/z.hat                                                      # Yearly correction factor - new Yearly total/old Yearly total from corrected monthly data?!
 #   year.const[z.hat < tol] <- 0                                                    # if yearly total (old) is too small - make factor zero (don't want to divide by zero)
     year.const[is.na(year.const)] <- 0                                              # If yearly total is missing, make 0
@@ -445,12 +447,12 @@ nest.mod.val <- function(n,y,obs.sta,mod.sta,start.yr,end.yr,fun="mean",tol=0.1)
     gc() # clean up memory
 
     # Create y tick
-    y[between(as.vector(y),0,tol)]=tol; y[between(as.vector(y),-tol,0)]= -tol
+    y[dplyr::between(as.vector(y),0,tol)]=tol; y[dplyr::between(as.vector(y),-tol,0)]= -tol
     month.const <- as.matrix(y.hat)/as.matrix(y)
 #   month.const[y < tol] <- 0
     month.const[is.na(month.const)] <- 0
 
-    z.hat[between(as.vector(z.hat),0,tol)]=tol; z.hat[between(as.vector(z.hat),-tol,0)]= -tol
+    z.hat[dplyr::between(as.vector(z.hat),0,tol)]=tol; z.hat[dplyr::between(as.vector(z.hat),-tol,0)]= -tol
     year.const <- z.tick/z.hat
 #   year.const[z.hat < tol] <- 0
     year.const[is.na(year.const)] <- 0
