@@ -1,5 +1,7 @@
 # NBC
  Nested Bias Correction
+ 
+ Note: This is a simplified R package based on [MBC](http://www.hydrology.unsw.edu.au/multivariate-bias-correction-mbc) developed at WRC, UNSW. The NBC package development is still on-going. 
 
 ## Installation
 You can install the package via devtools from [GitHub](https://github.com/) with:
